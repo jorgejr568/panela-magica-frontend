@@ -21,16 +21,11 @@ export function humanReadableInterval(date: number): string {
     return `${diff.hours} ${_pluralize('hora', 'horas', diff.hours)} atrás`
   }
 
-  if (diff.minutes > 0) {
+  if (diff.minutes > 2) {
     return `${diff.minutes} ${_pluralize('minuto', 'minutos', diff.minutes)} atrás`
   }
 
-  if (diff.seconds > 0) {
-    return `${diff.seconds} ${_pluralize('segundo', 'segundos', diff.seconds)} atrás`
-  }
-
-
-  return `${parsedDate.toFormat('dd/MM/yyyy HH:mm:ss')}`
+  return 'agora'
 }
 
 function _pluralize(singular: string, plural: string, count: number): string {
