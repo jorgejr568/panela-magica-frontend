@@ -1,5 +1,6 @@
 import {
   BoldItalicUnderlineToggles,
+  headingsPlugin,
   listsPlugin,
   markdownShortcutPlugin,
   MDXEditor,
@@ -15,6 +16,7 @@ import '@mdxeditor/editor/style.css'
 export default function Editor({plugins, ...props}: MDXEditorProps) {
   return <MDXEditor
     {...props} plugins={[
+    headingsPlugin(),
     listsPlugin(),
     quotePlugin(),
     markdownShortcutPlugin(),
@@ -27,5 +29,6 @@ export default function Editor({plugins, ...props}: MDXEditorProps) {
       )
     }),
     ...(plugins || [])
-  ]} className={cn("w-full prose max-w-full dark:prose-invert", props.className)}/>
+  ]} className={cn("w-full prose dark:prose-invert", 'max-w-full min-w-full', props.className)}
+  />
 }

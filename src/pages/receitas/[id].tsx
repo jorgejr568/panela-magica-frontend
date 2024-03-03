@@ -222,7 +222,7 @@ export default function PaginaReceitaUnica({receita: initialReceita}: PaginaRece
 
                   <Form {...form} >
                     <form onSubmit={form.handleSubmit(handleSalvar)} className='grid gap-4 mt-8 border'>
-                      <ScrollArea className='max-h-[65vh] lg:max-h-[80vh]'>
+                      <ScrollArea className='max-h-[65vh] lg:max-h-[72vh] xl:max-h-[80vh]'>
                         <div className="px-4 py-2 space-y-4">
                           <FormField
                             control={form.control}
@@ -309,19 +309,13 @@ export default function PaginaReceitaUnica({receita: initialReceita}: PaginaRece
                             )}
                           />
 
-                          <FormField
-                            control={form.control}
-                            name="modo_de_preparo"
-                            render={({field}) => (
-                              <div>
-                                <Label htmlFor="modo_de_preparo">Modo de preparo</Label>
-                                <Editor
-                                  markdown={field.value}
-                                  {...field}
-                                />
-                              </div>
-                            )}
-                          />
+                          <div>
+                            <Label htmlFor="modo_de_preparo">Modo de preparo</Label>
+                            <Editor
+                              markdown={form.watch('modo_de_preparo')}
+                              onChange={(value) => form.setValue('modo_de_preparo', value)}
+                            />
+                          </div>
                         </div>
                       </ScrollArea>
                     </form>
