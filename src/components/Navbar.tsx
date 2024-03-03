@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import {PlusCircleIcon} from "@heroicons/react/24/outline";
 
 export function Navbar() {
   return <header className="flex h-14 px-4 border-b lg:h-20 md:px-6">
@@ -10,9 +11,13 @@ export function Navbar() {
           <span className="sr-only">Panela Mágica</span>
         </Link>
       </div>
-      <nav className="ml-auto space-x-4">
+      <nav className="flex ml-auto space-x-4">
         <Link className="font-semibold" href="/">
           Receitas
+        </Link>
+
+        <Link href='/receitas/nova' className="font-semibold">
+          <PlusCircleIcon className="h-6 w-6"/>
         </Link>
       </nav>
     </div>
