@@ -14,6 +14,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 hostname: 'localhost',
+            },
+            {
+                hostname: 'panela-magica-imagens.nyc3.cdn.digitaloceanspaces.com',
             }
         ]
     },
