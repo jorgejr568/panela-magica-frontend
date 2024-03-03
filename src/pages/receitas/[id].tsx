@@ -43,8 +43,8 @@ const atualizarReceitaSchema = z.object({
     })
     .optional(),
   ingredientes: z.array(z.object({
-    nome: z.string().min(3, {message: "O nome do ingrediente deve ter no mínimo 3 caracteres"}).max(50, {message: "O nome do ingrediente deve ter no máximo 50 caracteres"}),
-    quantidade: z.string().min(1, {message: "A quantidade do ingrediente deve ter no mínimo 1 caractere"}).max(20, {message: "A quantidade do ingrediente deve ter no máximo 20 caracteres"})
+    nome: z.string().min(3, {message: "O nome do ingrediente deve ter no mínimo 3 caracteres"}).max(100, {message: "O nome do ingrediente deve ter no máximo 50 caracteres"}),
+    quantidade: z.string().min(1, {message: "A quantidade do ingrediente deve ter no mínimo 1 caractere"}).max(50, {message: "A quantidade do ingrediente deve ter no máximo 20 caracteres"})
   }), {
     required_error: "Deve haver pelo menos um ingrediente"
   }).min(1, {message: "Deve haver pelo menos um ingrediente"}).max(50, {message: "Deve haver no máximo 50 ingredientes"}),
