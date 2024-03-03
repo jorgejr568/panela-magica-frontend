@@ -46,6 +46,10 @@ export const ReceitasAPI = {
   buscar: async (id: number): Promise<Receita | null> => {
     const data = await fetch(`${BASE_URL}/receitas/${id}`)
     if (!data.ok) {
+      if (data.status === 404) {
+        return null
+      }
+      
       throw new Error('Erro ao buscar a receita')
     }
 
