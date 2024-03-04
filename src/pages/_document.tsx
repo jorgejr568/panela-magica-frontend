@@ -8,7 +8,7 @@ export default function Document() {
         <link rel="icon" href="/logo.png"/>
         <meta name="theme-color" content="#FFFFFF"/>
       </Head>
-      <body>
+      <body className='light'>
       <Main/>
       <NextScript/>
       </body>
