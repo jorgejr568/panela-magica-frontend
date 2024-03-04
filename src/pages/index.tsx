@@ -85,7 +85,7 @@ export default function Home({receitas: initialReceitas}: HomeProps) {
                       <AlertDialogTrigger asChild>
                         <Button variant='secondary'><TrashIcon className='h-4 w-4'/></Button>
                       </AlertDialogTrigger>
-                      <AlertDialogContent>
+                      <AlertDialogContent className='max-w-18rem lg:max-w-[40rem]'>
                         <AlertDialogHeader>Deseja realmente excluir a receita?</AlertDialogHeader>
                         <AlertDialogDescription>
                           <p>Esta ação é irreversível e excluirá permanentemente a receita do Panela Mágica.</p>
