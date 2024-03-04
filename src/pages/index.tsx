@@ -57,7 +57,7 @@ export default function Home({receitas: initialReceitas}: HomeProps) {
             As melhores receitas para você
           </h1>
 
-          <section className='grid grid-cols-1 gap-6 mt-6 md:grid-cols-2'>
+          <section className='grid grid-cols-1 gap-6 mt-6 md:grid-cols-2 lg:grid-cols-3'>
             {receitas.map((receita) => (
               <Card key={receita.id}>
                 <CardHeader className="p-0 overflow-hidden">
