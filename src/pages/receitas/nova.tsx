@@ -109,7 +109,7 @@ export default function NovaReceita({session}: { session: AuthSession }) {
       <title>Nova Receita | Panela Mágica</title>
     </Head>
 
-    <Navbar/>
+    <Navbar user={session.user}/>
     <TooltipProvider>
       <Main>
         <h1
