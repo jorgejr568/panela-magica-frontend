@@ -83,7 +83,7 @@ export default function NovaReceita({session}: { session: AuthSession }) {
 
   const handleFormSubmit = async (data: ReceitaForm) => {
     try {
-      const result = await receitaFormSchema.safeParse({
+      const result = receitaFormSchema.safeParse({
         ...data,
         imagem: imagemRef.current?.files?.[0]
       })
@@ -93,8 +93,8 @@ export default function NovaReceita({session}: { session: AuthSession }) {
         return
       }
 
-      const imageUrl = await ReceitasAPI.salvarImagem(result.data.imagem)
-      const receita = await ReceitasAPI.cadastrar({...result.data, imagem: imageUrl})
+      const imageUrl = await ReceitasAPI.salvarImagem(result.data.imagem, session.token)
+      const receita = await ReceitasAPI.cadastrar({...result.data, imagem: imageUrl}, session.token)
 
       toast.success('Receita cadastrada com sucesso')
       await Router.push(`/receitas/${receita.id}`)

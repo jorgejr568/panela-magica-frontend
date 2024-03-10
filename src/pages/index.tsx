@@ -91,6 +91,7 @@ export default function Home({receitas: initialReceitas, session}: HomeProps) {
           isOpen={modalDelecao.isOpen}
           onOpenChange={modalDelecao.closeModal}
           receita={modalDelecao.receita as Receita}
+          token={session.token}
       />}
     </>
   );

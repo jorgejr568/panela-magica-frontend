@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/alert-dialog";
 import {useState} from "react";
 import {toast} from "sonner";
+import {AuthSession} from "@/utils/getAuthServerSideProps";
 
 type ModalDelecaoProps = {
+  token: AuthSession['token'];
   receita: Receita;
   isOpen: boolean;
   onOpenChange: (open: boolean) => void;
@@ -25,7 +27,7 @@ export const ModalDelecao = (props: ModalDelecaoProps) => {
       setIsDeleting(true);
 
       try {
-        await ReceitasAPI.deletar(receita.id);
+        await ReceitasAPI.deletar(receita.id, props.token);
         toast.success("Receita excluída com sucesso");
 
         props.afterDelete && props.afterDelete(receita);

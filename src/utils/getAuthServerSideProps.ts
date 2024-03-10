@@ -30,7 +30,7 @@ export const getAuthServerSideProps = <T extends { [key: string]: any } = {
       };
     }
 
-    const user = await UserAPI.me(authCookie);
+    const user = await UserAPI.me(authCookie || '');
     if (!user && !allowUnauthenticated) {
       return {
         redirect: {
