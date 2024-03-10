@@ -15,16 +15,12 @@ import {toast} from "sonner";
 import {Toaster} from "@/components/ui/sonner";
 import {useRef} from "react";
 import {cn} from "@/lib/utils";
-import {ReceitasAPI, TIPOS_DE_RECEITA} from "@/API/receita";
+import {ReceitasAPI, TIPOS_DE_RECEITA} from "@/API";
 import Router from "next/router";
+import {AuthSession, getAuthServerSideProps} from "@/utils/getAuthServerSideProps";
 
 const Editor = dynamic(() => import('@/components/Editor'), {ssr: false})
 export const receitaFormSchema = z.object({
-  criador: z.string({
-    required_error: "O nome do criador é obrigatório"
-  }).min(3, {
-    message: "O nome do criador deve ter no mínimo 3 caracteres"
-  }).max(50, {message: "O nome do criador deve ter no máximo 50 caracteres"}),
   tipo: z.enum(TIPOS_DE_RECEITA, {
     required_error: "O tipo da receita é obrigatório",
   }),
@@ -63,13 +59,12 @@ export type ReceitaForm = z.infer<typeof receitaFormSchema>
 
 const ingredinteVazio: () => ReceitaForm['ingredientes'][0] = () => ({nome: "", quantidade: ""})
 
-export default function NovaReceita() {
+export default function NovaReceita({session}: { session: AuthSession }) {
   const imagemRef = useRef<HTMLInputElement>(null)
 
   const form = useForm<ReceitaForm>({
     defaultValues: {
       nome: "",
-      criador: "",
       imagem: "",
       ingredientes: [
         ingredinteVazio()
@@ -123,9 +118,9 @@ export default function NovaReceita() {
         </h1>
 
         <Form {...form}>
-          <form className={'grid lg:grid-cols-2 gap-4 mt-6 md:gap-y-6 lg:gap-y-12'}
+          <form className={'grid lg:grid-cols-3 gap-4 mt-6 md:gap-y-6 lg:gap-y-12'}
                 onSubmit={form.handleSubmit(handleFormSubmit)}>
-            <Label htmlFor="nome" className="lg:col-span-2 text-2xl">Informações Gerais</Label>
+            <Label htmlFor="nome" className="lg:col-span-3 text-2xl">Informações Gerais</Label>
 
             <FormField
               control={form.control}
@@ -140,10 +135,10 @@ export default function NovaReceita() {
 
             <FormField
               control={form.control}
-              name="criador"
+              name="tipo"
               render={({field}) => (
                 <div>
-                  <Label htmlFor="criador">Tipo</Label>
+                  <Label htmlFor="tipo">Tipo</Label>
                   <Select value={form.watch('tipo')} onValueChange={(value) => form.setValue('tipo', value as any)}>
                     <SelectTrigger>
                       <SelectValue placeholder='Selecione o tipo da receita'/>
@@ -159,24 +154,13 @@ export default function NovaReceita() {
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="criador"
-              render={({field}) => (
-                <div>
-                  <Label htmlFor="criador">Criador</Label>
-                  <Input id="criador" type="text" placeholder="Seu nome" {...field}/>
-                </div>
-              )}
-            />
-
             <div>
               <Label htmlFor="imagem">Foto da Receita</Label>
               <Input id="imagem" type="file"
                      accept="image/jpeg, image/jpg, image/png" ref={imagemRef}/>
             </div>
 
-            <div className="lg:col-span-2 flex flex-col gap-2">
+            <div className="lg:col-span-3 flex flex-col gap-2">
               <Label className="text-2xl">Ingredientes</Label>
 
               <Table>
@@ -228,7 +212,7 @@ export default function NovaReceita() {
             </div>
 
 
-            <div className="lg:col-span-2 flex flex-col gap-2">
+            <div className="lg:col-span-3 flex flex-col gap-2">
               <FormField control={form.control} name="modo_de_preparo" render={({field}) => (
                 <div className='flex flex-col'>
                   <Label htmlFor="modo_de_preparo" className="text-2xl">Modo de Preparo</Label>
@@ -242,7 +226,7 @@ export default function NovaReceita() {
             </div>
 
 
-            <Button type="submit" className={cn('lg:col-span-2 mt-8', {
+            <Button type="submit" className={cn('lg:col-span-3 mt-8', {
               'opacity-50': form.formState.isSubmitting
             })} disabled={form.formState.isSubmitting}>
               {form.formState.isSubmitting ? 'Salvando...' : 'Salvar Receita'}
@@ -255,3 +239,5 @@ export default function NovaReceita() {
     <Footer/>
   </>
 }
+
+export const getServerSideProps = getAuthServerSideProps();

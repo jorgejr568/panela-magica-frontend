@@ -1,4 +1,4 @@
-import { Receita, ReceitasAPI } from "@/API/receita";
+import {Receita, ReceitasAPI} from "@/API";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,8 +8,8 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
-import { toast } from "sonner";
+import {useState} from "react";
+import {toast} from "sonner";
 
 type ModalDelecaoProps = {
   receita: Receita;
@@ -64,15 +64,15 @@ export const ModalDelecao = (props: ModalDelecaoProps) => {
 };
 
 export const useModalDelecao = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [receita, setReceita] = useState<Receita | null>(null);
 
-  const openModal = () => setIsOpen(true);
-  const closeModal = () => setIsOpen(false);
+  const openModal = (receita: Receita) => setReceita(receita);
+  const closeModal = () => setReceita(null);
 
   return {
-    isOpen,
+    isOpen: !!receita,
     openModal,
     closeModal,
-    onOpenChange: setIsOpen,
+    receita,
   };
 };
